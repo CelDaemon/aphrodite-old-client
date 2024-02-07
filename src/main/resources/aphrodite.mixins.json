@@ -4,12 +4,7 @@
   "package": "net.voidgroup.aphrodite.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "ClickableWidgetMixin",
-    "GameRendererMixin",
-    "JsonEffectShaderProgramMixin",
-    "PostEffectProcessorAccessor",
-    "ScreenMixin",
-    "SoundSystemMixin"
+
   ],
   "injectors": {
     "defaultRequire": 1

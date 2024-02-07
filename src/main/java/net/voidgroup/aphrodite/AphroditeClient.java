@@ -1,6 +1,7 @@
 package net.voidgroup.aphrodite;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.metadata.ModMetadata;
 import org.slf4j.Logger;
@@ -14,6 +15,8 @@ public class AphroditeClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         LOGGER.info("Test");
-//        PauseMenuBlur.init(MinecraftClient.getInstance());
+        HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
+            drawContext.fillGradient(0, 0, drawContext.getScaledWindowWidth(), drawContext.getScaledWindowHeight(), 0x4B000000, 0x4B000000);
+        });
     }
 }
