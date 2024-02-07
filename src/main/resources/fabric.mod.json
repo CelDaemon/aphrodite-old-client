@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "aphrodite",
+  "version": "${version}",
+  "name": "Aphrodite",
+  "description": "",
+  "authors": [
+    "CelDaemon"
+  ],
+  "contact": {
+    "repo": "https://github.com/celeste/aphrodite"
+  },
+  "license": "unlicense",
+  "icon": "assets/aphrodite/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.voidgroup.aphrodite.AphroditeClient"
+    ]
+  },
+  "mixins": [
+    "aphrodite.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

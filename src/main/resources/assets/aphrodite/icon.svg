@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="500mm" height="500mm" version="1.1" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <clipPath id="clipPath2043">
+   <circle transform="rotate(-33.3)" cx="71.696" cy="346.21" r="166.67" fill="#645ed8" stroke-width=".28724"/>
+  </clipPath>
+  <clipPath id="clipPath2047">
+   <circle transform="rotate(-33.3)" cx="71.696" cy="346.21" r="166.67" fill="#645ed8" stroke-width=".28724"/>
+  </clipPath>
+ </defs>
+ <g>
+  <g transform="matrix(1.2537 .82353 -.82353 1.2537 142.46 -269.31)">
+   <rect y="-1.7764e-15" width="500" height="500" clip-path="url(#clipPath2047)" fill="#5d58b9" stroke-width=".5833"/>
+   <rect width="250" height="500" clip-path="url(#clipPath2043)" fill="#645ed8" stroke-width=".38761"/>
+  </g>
+ </g>
+ <g fill="#cdcbe1" stroke="#cdcbe1" stroke-width="70px">
+  <line x1="400" x2="285.75" y1="123" y2="343.12"/>
+  <line x1="100" x2="250" y1="123" y2="412"/>
+ </g>
+</svg>
