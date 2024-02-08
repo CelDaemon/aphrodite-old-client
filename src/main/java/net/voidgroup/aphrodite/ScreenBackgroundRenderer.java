@@ -6,11 +6,9 @@ import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
-import net.voidgroup.aphrodite.event.LoadShaderEvent;
-import net.voidgroup.aphrodite.event.RenderOverlayEvent;
-import net.voidgroup.aphrodite.event.RenderStartEvent;
-import net.voidgroup.aphrodite.event.ResizeShaderEvent;
+import net.voidgroup.aphrodite.event.*;
 import net.voidgroup.aphrodite.input.CallbackKeyBinding;
+import net.voidgroup.aphrodite.mixin.PostEffectProcessorAccessor;
 import net.voidgroup.aphrodite.render.ScreenDetails;
 import net.voidgroup.aphrodite.util.RenderUtil;
 
@@ -48,7 +46,7 @@ public class ScreenBackgroundRenderer {
             refreshDarken();
         });
         RenderOverlayEvent.EVENT.register((drawContext) -> {
-            if(!_enabled || _client.currentScreen != null) return;
+            if(!_enabled || _client.currentScreen != null || _darkenEasedProgress == 0) return;
             var color = getColor();
             drawContext.fillGradient(0, 0, drawContext.getScaledWindowWidth(), drawContext.getScaledWindowHeight(), color, color);
         });
@@ -58,6 +56,15 @@ public class ScreenBackgroundRenderer {
         });
         ResizeShaderEvent.EVENT.register((width, height) -> {
             if(_blurShader != null) _blurShader.setupDimensions(width, height);
+        });
+        RenderShaderEvent.EVENT.register(tickDelta -> {
+            if(!_enabled || _blurShader == null || _blurEasedProgress == 0) return;
+            ((PostEffectProcessorAccessor) _blurShader).getPasses().forEach(postEffectPass -> {
+                var uniform = postEffectPass.getProgram().getUniformByName("Progress");
+                assert uniform != null;
+                uniform.set(_blurEasedProgress);
+            });
+            _blurShader.render(tickDelta);
         });
         _init = true;
     }

@@ -7,11 +7,14 @@
     "ChatScreenMixin",
     "DownloadingTerrainScreenMixin",
     "GameRendererMixin",
-    "MinecraftClientMixin",
     "JsonEffectShaderProgramMixin",
+    "MinecraftClientMixin",
     "ScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+    "PostEffectProcessorAccessor"
+  ]
 }
