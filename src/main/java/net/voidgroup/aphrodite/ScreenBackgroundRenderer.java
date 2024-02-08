@@ -22,12 +22,10 @@ public class ScreenBackgroundRenderer {
     private long _blurChangeTime;
     private float _blurOffset;
     private boolean _blurState;
-    private float _blurProgress;
     private float _blurEasedProgress;
     private long _darkenChangeTime;
     private float _darkenOffset;
     private boolean _darkenState;
-    private float _darkenProgress;
     private float _darkenEasedProgress;
     public ScreenBackgroundRenderer(MinecraftClient client) {
         _client = client;
@@ -87,7 +85,7 @@ public class ScreenBackgroundRenderer {
             _blurChangeTime = currentTime;
             _blurState = newState;
         }
-        _blurProgress = getProgress(currentTime, _blurChangeTime, _blurOffset, _blurState);
+        float _blurProgress = getProgress(currentTime, _blurChangeTime, _blurOffset, _blurState);
         _blurEasedProgress = ease(_blurProgress);
     }
     public void refreshDarken() {
@@ -99,7 +97,7 @@ public class ScreenBackgroundRenderer {
             _darkenChangeTime = currentTime;
             _darkenState = newState;
         }
-        _darkenProgress = getProgress(currentTime, _darkenChangeTime, _darkenOffset, _darkenState);
+        float _darkenProgress = getProgress(currentTime, _darkenChangeTime, _darkenOffset, _darkenState);
         _darkenEasedProgress = ease(_darkenProgress);
     }
     public static float getProgress(long currentTime, long startTime, float offset, boolean direction) {
