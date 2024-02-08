@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "ChatScreenMixin",
+    "ClickableWidgetMixin",
     "DownloadingTerrainScreenMixin",
     "GameRendererMixin",
     "JsonEffectShaderProgramMixin",
