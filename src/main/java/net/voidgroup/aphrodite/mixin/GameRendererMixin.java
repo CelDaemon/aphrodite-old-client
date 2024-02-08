@@ -12,7 +12,6 @@ import net.voidgroup.aphrodite.event.LoadShaderEvent;
 import net.voidgroup.aphrodite.event.RenderOverlayEvent;
 import net.voidgroup.aphrodite.event.RenderStartEvent;
 import net.voidgroup.aphrodite.event.ResizeShaderEvent;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
