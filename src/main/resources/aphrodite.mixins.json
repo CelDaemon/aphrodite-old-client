@@ -4,7 +4,11 @@
   "package": "net.voidgroup.aphrodite.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-
+    "ChatScreenMixin",
+    "DownloadingTerrainScreenMixin",
+    "GameRendererMixin",
+    "MinecraftClientMixin",
+    "ScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
