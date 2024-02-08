@@ -8,6 +8,7 @@
     "DownloadingTerrainScreenMixin",
     "GameRendererMixin",
     "MinecraftClientMixin",
+    "JsonEffectShaderProgramMixin",
     "ScreenMixin"
   ],
   "injectors": {

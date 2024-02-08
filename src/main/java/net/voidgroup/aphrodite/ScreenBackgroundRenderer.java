@@ -3,18 +3,23 @@ package net.voidgroup.aphrodite;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.PostEffectProcessor;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.voidgroup.aphrodite.event.LoadShaderEvent;
 import net.voidgroup.aphrodite.event.RenderOverlayEvent;
 import net.voidgroup.aphrodite.event.RenderStartEvent;
+import net.voidgroup.aphrodite.event.ResizeShaderEvent;
 import net.voidgroup.aphrodite.input.CallbackKeyBinding;
 import net.voidgroup.aphrodite.render.ScreenDetails;
+import net.voidgroup.aphrodite.util.RenderUtil;
 
 public class ScreenBackgroundRenderer {
     public static final Identifier KEY = new Identifier(AphroditeClient.NAMESPACE, "background_render");
     public static final Identifier CATEGORY = new Identifier(AphroditeClient.NAMESPACE, "main");
     private final MinecraftClient _client;
+    private PostEffectProcessor _blurShader;
     private boolean _init = false;
     private boolean _enabled = false;
     private long _blurChangeTime;
@@ -44,13 +49,16 @@ public class ScreenBackgroundRenderer {
             refreshDarken();
         });
         RenderOverlayEvent.EVENT.register((drawContext) -> {
-            if(_client.currentScreen != null) return;
+            if(!_enabled || _client.currentScreen != null) return;
             var color = getColor();
-            RenderSystem.disableDepthTest();
-            RenderSystem.depthMask(false);
             drawContext.fillGradient(0, 0, drawContext.getScaledWindowWidth(), drawContext.getScaledWindowHeight(), color, color);
-            RenderSystem.enableDepthTest();
-            RenderSystem.depthMask(true);
+        });
+        LoadShaderEvent.EVENT.register(() -> {
+           if(_blurShader != null) _blurShader.close();
+           _blurShader = RenderUtil.createPostEffect(_client.getTextureManager(), _client.getResourceManager(), _client.getFramebuffer(), new Identifier(AphroditeClient.NAMESPACE, "blur"));
+        });
+        ResizeShaderEvent.EVENT.register((width, height) -> {
+            if(_blurShader != null) _blurShader.setupDimensions(width, height);
         });
         _init = true;
     }
