@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ClickableWidgetMixin {
     @Shadow protected float alpha;
 
-    @Inject(method = "drawTexture", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;enableDepthTest()V", shift = At.Shift.BEFORE))
+    @Inject(method = "drawTexture", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;enableDepthTest()V", shift = At.Shift.BEFORE, remap = false))
     private void drawTextureTransparency(DrawContext context, Identifier texture, int x, int y, int u, int v, int hoveredVOffset, int width, int height, int textureWidth, int textureHeight, CallbackInfo ci) {
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1, 1, 1, alpha);
