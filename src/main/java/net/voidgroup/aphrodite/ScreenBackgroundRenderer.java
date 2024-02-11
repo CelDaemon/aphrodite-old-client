@@ -17,6 +17,7 @@ public class ScreenBackgroundRenderer {
     public static final Identifier CATEGORY = new Identifier(AphroditeClient.NAMESPACE, "main");
     private final MinecraftClient _client;
     private PostEffectProcessor _blurShader;
+    private PostEffectProcessorAccessor _blurShaderAccessor;
     private boolean _init = false;
     private boolean _enabled = false;
     private long _blurChangeTime;
@@ -51,13 +52,14 @@ public class ScreenBackgroundRenderer {
         LoadShaderEvent.EVENT.register(() -> {
            if(_blurShader != null) _blurShader.close();
            _blurShader = RenderUtil.createPostEffect(_client.getTextureManager(), _client.getResourceManager(), _client.getFramebuffer(), new Identifier(AphroditeClient.NAMESPACE, "blur"));
+           _blurShaderAccessor = (PostEffectProcessorAccessor) _blurShader;
         });
         ResizeShaderEvent.EVENT.register((width, height) -> {
             if(_blurShader != null) _blurShader.setupDimensions(width, height);
         });
         RenderShaderEvent.EVENT.register(tickDelta -> {
             if(!_enabled || _blurShader == null || _blurEasedProgress == 0) return;
-            ((PostEffectProcessorAccessor) _blurShader).getPasses().forEach(postEffectPass -> {
+            _blurShaderAccessor.getPasses().forEach(postEffectPass -> {
                 var uniform = postEffectPass.getProgram().getUniformByName("Progress");
                 assert uniform != null;
                 uniform.set(_blurEasedProgress);
